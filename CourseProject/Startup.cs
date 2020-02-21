@@ -29,7 +29,7 @@ namespace CourseProject
         {
             services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer("Server=LAPTOP-F93IBOP5;Database=App;User=App;Password=1234;Trusted_Connection=True;");
+                options.UseSqlServer("Server=DESKTOP-3JGDKKC;Database=shop;User=elena;Password=1234;Trusted_Connection=True;");
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

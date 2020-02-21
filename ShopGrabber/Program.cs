@@ -22,7 +22,7 @@ namespace ShopGrabber
             builder.RegisterType<GeneratePurchaseRandom>().As<IPurchaseGenerator>();
             builder.RegisterType<GeneratePurchaseProduct>().As<IPurchaseProductGenerator>();
             var optionsBuilder = new DbContextOptionsBuilder<Context>();
-            optionsBuilder.UseSqlServer("Server=LAPTOP-F93IBOP5;Database=App;User=App;Password=1234;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-3JGDKKC;Database=shop;User=elena;Password=1234;Trusted_Connection=True;");
             builder.RegisterInstance(new Context(optionsBuilder.Options));
 
             builder.RegisterType<EFPutter>().As<IPutter>();

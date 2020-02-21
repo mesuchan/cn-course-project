@@ -14,8 +14,8 @@ namespace ShopGrabber
 {
     class HMGrabber : IGrabber
     {
-        const string Url = "https://www2.hm.com/ru_ru/zhenshchiny/vybrat-kollekciyu/vechernyaya-odezhda.html?product-type=ladies_partywear&sort=stock&image-size=small&image=model&offset=0&page-size=100";
-        const string ProductUrl = "https://www2.hm.com/ru_ru/productpage.%.html";
+        const string Url = "C:\\Users\\semin\\Downloads\\shop\\file.html";
+        const string ProductUrl = "C:\\Users\\semin\\Downloads\\shop\\%.html";
 
         Random R = new Random();
         List<string> Countries = new List<string>(5) { "Индия", "Китай", "Бангладеш", "Мьянма", "Вьетнам" };
@@ -28,10 +28,12 @@ namespace ShopGrabber
 
             List<string> indexes = GrabIndexes();
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < 8; i++)
             {
                 string url = ProductUrl.Replace("%", indexes[i]);
-                var page = new HtmlWeb().Load(url);
+                var tmp = new HtmlWeb();
+                tmp.UserAgent = "Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 74.0.3729.169 Safari / 537.36";
+                var page = tmp.Load(url);
 
                 Product product = new Product();
 
@@ -109,18 +111,7 @@ namespace ShopGrabber
 
         private List<string> GrabIndexes()
         {
-            List<string> indexes = new List<string>();
-
-            var page = new HtmlWeb().Load(Url);
-
-            var links = page.DocumentNode.SelectNodes("//a[@class='item-link']");
-
-            foreach (var link in links)
-            {
-                indexes.Add(link.Attributes["href"].Value.ToString().Substring(19, 10));
-            }
-
-            return indexes;
+            return new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8" }; 
         }
     }
 }

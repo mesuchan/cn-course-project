@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Models;
+using CsvHelper;
+using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -113,6 +116,21 @@ namespace CourseProject.Controllers
                     select v.Product;
 
             return Ok(r);
+        }
+
+        [HttpGet("export")]
+        public ActionResult Export()
+        {
+            var tmp = context.Products.Include(p => p.Sizes).Include(p => p.Fabrics).Select(p => new { p.ProductId, Name = p.Name.Trim(' ', '\n'), p.Price, p.Color, p.Country, p.Description });
+
+            StringWriter streamWriter = new StringWriter();
+            using (CsvWriter csvWriter = new CsvWriter(streamWriter, new CsvConfiguration(new System.Globalization.CultureInfo("ru-RU", false))))
+            {
+                csvWriter.Configuration.Delimiter = ";";
+                csvWriter.WriteRecords(tmp);
+            }
+
+            return Ok(streamWriter.ToString());
         }
     }
 }
